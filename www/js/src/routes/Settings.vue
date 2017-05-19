@@ -1,6 +1,6 @@
 <template>
-  <div class="page page--default">
-  	<h1>Default</h1>
+  <div class="page page--settings">
+  	<h1>Settings</h1>
   </div>
 </template>
 

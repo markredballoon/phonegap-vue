@@ -14918,7 +14918,7 @@ exports.default = {
   name: 'App'
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n  <div id=\"app-main\">\n  \t<div>\n\t  <router-link to=\"/\">Go to Foo</router-link>\n\t  <router-link to=\"/about\">Go to Bar</router-link>\n    </div>\n\t<router-view></router-view>\n  </div>\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div id=\"app-main\">\n  <div>\n    <router-link to=\"/\">Go to index</router-link>\n    <router-link to=\"/about\">about</router-link>\n    <router-link to=\"/settings\">settings</router-link>\n  </div>\n  <router-view></router-view>\n</div>\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -14930,6 +14930,28 @@ if (module.hot) {(function () {  module.hot.accept()
   }
 })()}
 },{"vue":29,"vue-hot-reload-api":27}],33:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {
+  name: 'note-button',
+  props: ['note']
+};
+if (module.exports.__esModule) module.exports = module.exports.default
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\t<div class=\"btn\">\n    <router-link :to=\"'/note/'+note.id\">\n      {{note.title}}<div class=\"arrow\"></div>\n    </router-link>\n  </div>\n"
+if (module.hot) {(function () {  module.hot.accept()
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  if (!module.hot.data) {
+    hotAPI.createRecord("_v-7a2bb6e4", module.exports)
+  } else {
+    hotAPI.update("_v-7a2bb6e4", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
+  }
+})()}
+},{"vue":29,"vue-hot-reload-api":27}],34:[function(require,module,exports){
 'use strict';
 
 var _vue = require('vue');
@@ -15002,7 +15024,7 @@ var vm = new _vue2.default({
 });
 /* END: Vue init */
 
-},{"./App.vue":32,"./routes/index":36,"./store/index":37,"axios":1,"vue":29,"vue-router":28,"vuex":31,"vuex-router-sync":30}],34:[function(require,module,exports){
+},{"./App.vue":32,"./routes/index":38,"./store/index":39,"axios":1,"vue":29,"vue-router":28,"vuex":31,"vuex-router-sync":30}],35:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -15010,7 +15032,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = {};
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"page page--default\"></div>\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"page page--default\">\n\t<h1>Default</h1>\n</div>\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -15021,25 +15043,6 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-142c3dca", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"vue":29,"vue-hot-reload-api":27}],35:[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = {};
-if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"page page--home\"></div>\n"
-if (module.hot) {(function () {  module.hot.accept()
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), true)
-  if (!hotAPI.compatible) return
-  if (!module.hot.data) {
-    hotAPI.createRecord("_v-6c657316", module.exports)
-  } else {
-    hotAPI.update("_v-6c657316", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
-  }
-})()}
 },{"vue":29,"vue-hot-reload-api":27}],36:[function(require,module,exports){
 'use strict';
 
@@ -15047,39 +15050,126 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Home = require('./Home.vue');
+var _NoteButton = require('../components/NoteButton.vue');
 
-var _Home2 = _interopRequireDefault(_Home);
+var _NoteButton2 = _interopRequireDefault(_NoteButton);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+  components: {
+    'note-button': _NoteButton2.default
+  },
+  computed: {}
+};
+if (module.exports.__esModule) module.exports = module.exports.default
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"page page--index\">\n\t<h1>Index</h1>\n\n\t<div class=\"index-list\">\n\t\t<note-button note=\"\"></note-button>\n\t</div>\n\n</div>\n"
+if (module.hot) {(function () {  module.hot.accept()
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  if (!module.hot.data) {
+    hotAPI.createRecord("_v-77ce68a8", module.exports)
+  } else {
+    hotAPI.update("_v-77ce68a8", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
+  }
+})()}
+},{"../components/NoteButton.vue":33,"vue":29,"vue-hot-reload-api":27}],37:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {};
+if (module.exports.__esModule) module.exports = module.exports.default
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"page page--settings\">\n\t<h1>Settings</h1>\n</div>\n"
+if (module.hot) {(function () {  module.hot.accept()
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  if (!module.hot.data) {
+    hotAPI.createRecord("_v-108e5cb9", module.exports)
+  } else {
+    hotAPI.update("_v-108e5cb9", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
+  }
+})()}
+},{"vue":29,"vue-hot-reload-api":27}],38:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _Index = require('./Index.vue');
+
+var _Index2 = _interopRequireDefault(_Index);
 
 var _Default = require('./Default.vue');
 
 var _Default2 = _interopRequireDefault(_Default);
+
+var _Settings = require('./Settings.vue');
+
+var _Settings2 = _interopRequireDefault(_Settings);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /* END: Imports */
 
 /* EXPORT: Routes */
-/* START: Imports */
-// import the components for the routes here
 exports.default = {
   mode: 'history',
-  routes: [{ path: '/', component: _Home2.default }, { path: '/about', component: _Default2.default }, { path: '*', component: _Default2.default }]
-};
+  routes: [{
+    path: '/',
+    component: _Index2.default
+  }, {
+    path: '/about',
+    component: _Default2.default
+  }, {
+    path: '/settings',
+    component: _Settings2.default
+  }, {
+    path: '*',
+    component: _Default2.default
+  }, {
+    path: '/note/:id',
+    component: _Default2.default
+  }]
+}; /* START: Imports */
+// import the components for the routes here
 
-},{"./Default.vue":34,"./Home.vue":35}],37:[function(require,module,exports){
-"use strict";
+},{"./Default.vue":35,"./Index.vue":36,"./Settings.vue":37}],39:[function(require,module,exports){
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+var _notes = require('./notes');
+
+var _notes2 = _interopRequireDefault(_notes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 /* Store for the app */
 exports.default = {
-  state: {},
+  state: {
+    notes: _notes2.default
+  },
   actions: {},
   mutations: {},
   getters: {},
   modules: {}
 };
 
-},{}]},{},[33]);
+},{"./notes":40}],40:[function(require,module,exports){
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var notes = [];
+
+exports.default = notes;
+
+},{}]},{},[34]);
