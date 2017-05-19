@@ -10,13 +10,14 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import VueRouter from 'vue-router';
-import { sync } from 'vuex-router-sync'
-import axios from 'axios';
+import { sync } from 'vuex-router-sync'; // Keeps store and router in sync 
+import axios from 'axios'; // For http communication
 // Import store and router
 import vuexStore from './store/index';
 import vueRoutes from './routes/index';
 // Import vue files
 import App from './App.vue';
+import Header from './components/Header.vue';
 /* END: Imports */
 
 
@@ -30,6 +31,15 @@ Vue.use(VueRouter);
 // Add $http vue axios:
 Vue.prototype.$http = axios; 
 /* END: Vue plugins */
+
+
+
+
+/* START: Global Components */
+Vue.component('app-header', {
+  template: Header
+})
+/* END: Global Components */
 
 
 

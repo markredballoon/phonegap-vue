@@ -10,8 +10,13 @@ export default {
   mutations: {
   },
   getters: {
+    notesList(){
+      return this.state.notes;
+    },
+    notesId(id){
+      return this.state.notes[id];
+    }
   },  
   modules: {
-    
   }
 };

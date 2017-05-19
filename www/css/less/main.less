@@ -1,1 +1,32 @@
-@import './reset.less';
+/* Entry less file. Import other less files here. */
+
+
+/* Lib files: */
+@import '../../../node_modules/material-design-color/material-color.less'; // Material colours
+@import './lib/clearfix.less'; // Clearfix mixin
+@import './lib/reset.less'; // Reset css
+@import '../../../node_modules/font-awesome/less/font-awesome.less'; // Font awesome
+
+
+/* Variables file: */
+@import './variables.less'; 
+
+
+/* App layout: */
+@import './layout.less'; 
+
+
+/* Misc */
+@import './misc.less'; // Miscillanious styles
+
+
+/* Components */
+@import './components/header.less'; // Styles for the header component
+@import './components/footer.less'; // Styles for the header component
+
+@import './components/circle-button.less'; // Styles for the header component
+@import './components/note-button.less'; // Styles for the header component
+
+
+/* Routes */
+@import './routes/Index.less'; // Styles for the header component

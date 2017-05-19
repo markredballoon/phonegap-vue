@@ -14914,11 +14914,24 @@ return index;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+var _Footer = require('./components/Footer.vue');
+
+var _Footer2 = _interopRequireDefault(_Footer);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/* EXPORT: */
 exports.default = {
-  name: 'App'
+  name: 'App',
+  components: {
+    'app-footer': _Footer2.default
+  }
 };
+
+/* IMPORTS: */
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div id=\"app-main\">\n  <div>\n    <router-link to=\"/\">Go to index</router-link>\n    <router-link to=\"/about\">about</router-link>\n    <router-link to=\"/settings\">settings</router-link>\n  </div>\n  <router-view></router-view>\n</div>\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div id=\"app-main\">\n  <router-view></router-view>\n  <app-footer></app-footer>\n</div>\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -14929,18 +14942,120 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-111b7a52", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"vue":29,"vue-hot-reload-api":27}],33:[function(require,module,exports){
+},{"./components/Footer.vue":34,"vue":29,"vue-hot-reload-api":27}],33:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+
+/*EXPORTS*/
 exports.default = {
-  name: 'note-button',
-  props: ['note']
+  name: 'circle-button',
+  props: {
+    symbol: {
+      type: String,
+      default: 'plus'
+    }
+  },
+  computed: {
+    faClass: function faClass() {
+      return 'fa-' + this.plus;
+    }
+  },
+  methods: {
+    clicked: function clicked(event) {
+      this.$emit('clicked', event);
+    }
+  }
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\t<div class=\"btn\">\n    <router-link :to=\"'/note/'+note.id\">\n      {{note.title}}<div class=\"arrow\"></div>\n    </router-link>\n  </div>\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<button class=\"btn--circle\" @click=\"clicked\">\n  <i class=\"fa fa-fw fa-plus\" :class=\"\"></i>\n</button>\n"
+if (module.hot) {(function () {  module.hot.accept()
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  if (!module.hot.data) {
+    hotAPI.createRecord("_v-6c972128", module.exports)
+  } else {
+    hotAPI.update("_v-6c972128", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
+  }
+})()}
+},{"vue":29,"vue-hot-reload-api":27}],34:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+
+/*EXPORT:*/
+exports.default = {
+  name: 'app-footer'
+};
+if (module.exports.__esModule) module.exports = module.exports.default
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<footer>\n  <nav>\n    <ul>\n      <li>\n        <router-link to=\"/\">\n          <span>Index</span>\n        </router-link>\n      </li>\n      <li>\n        <router-link to=\"/about\">\n          <span>About</span>\n        </router-link>\n      </li>\n      <li>\n        <router-link to=\"/settings\">\n          <span>Settings</span>\n        </router-link>\n      </li>\n    </ul>\n  </nav>\n</footer>\n"
+if (module.hot) {(function () {  module.hot.accept()
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  if (!module.hot.data) {
+    hotAPI.createRecord("_v-3f5279e5", module.exports)
+  } else {
+    hotAPI.update("_v-3f5279e5", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
+  }
+})()}
+},{"vue":29,"vue-hot-reload-api":27}],35:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+
+/*EXPORT:*/
+exports.default = {
+  name: 'app-header'
+};
+if (module.exports.__esModule) module.exports = module.exports.default
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<header>\n  <slot></slot>\n</header>\n"
+if (module.hot) {(function () {  module.hot.accept()
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  if (!module.hot.data) {
+    hotAPI.createRecord("_v-6084ddd7", module.exports)
+  } else {
+    hotAPI.update("_v-6084ddd7", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
+  }
+})()}
+},{"vue":29,"vue-hot-reload-api":27}],36:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+
+/* EXPORT: */
+exports.default = {
+  name: 'note-button',
+  props: {
+    note: {
+      type: Object,
+      default: function _default() {
+        return {
+          id: 0,
+          title: 'Title',
+          content: 'test'
+        };
+      }
+    }
+  }
+};
+if (module.exports.__esModule) module.exports = module.exports.default
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n\t<div class=\"btn btn--note\">\n    <router-link :to=\"'/note/'+note.id\">\n      {{note.title}}\n    </router-link>\n  </div>\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -14951,7 +15066,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-7a2bb6e4", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"vue":29,"vue-hot-reload-api":27}],34:[function(require,module,exports){
+},{"vue":29,"vue-hot-reload-api":27}],37:[function(require,module,exports){
 'use strict';
 
 var _vue = require('vue');
@@ -14984,28 +15099,39 @@ var _App = require('./App.vue');
 
 var _App2 = _interopRequireDefault(_App);
 
+var _Header = require('./components/Header.vue');
+
+var _Header2 = _interopRequireDefault(_Header);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /* END: Imports */
 
 /* START: Vue plugins */
 // Add Vuex to Vue
+
+// Import vue files
+// For http communication
+// Import store and router
+_vue2.default.use(_vuex2.default);
+// Add Vue Router
+// Keeps store and router in sync 
 /* START: Polyfills */
 //require("babel-polyfill");
 /* END: Polyfills */
 
 /* START: Imports */
 // Vue and plugins
-_vue2.default.use(_vuex2.default);
-// Add Vue Router
-
-// Import vue files
-
-// Import store and router
 _vue2.default.use(_vueRouter2.default);
 // Add $http vue axios:
 _vue2.default.prototype.$http = _axios2.default;
 /* END: Vue plugins */
+
+/* START: Global Components */
+_vue2.default.component('app-header', {
+  template: _Header2.default
+});
+/* END: Global Components */
 
 /* START: Vue init */
 // Create store
@@ -15024,7 +15150,7 @@ var vm = new _vue2.default({
 });
 /* END: Vue init */
 
-},{"./App.vue":32,"./routes/index":38,"./store/index":39,"axios":1,"vue":29,"vue-router":28,"vuex":31,"vuex-router-sync":30}],35:[function(require,module,exports){
+},{"./App.vue":32,"./components/Header.vue":35,"./routes/index":41,"./store/index":42,"axios":1,"vue":29,"vue-router":28,"vuex":31,"vuex-router-sync":30}],38:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -15032,7 +15158,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = {};
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"page page--default\">\n\t<h1>Default</h1>\n</div>\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"page page--default\">\n  <header>\n    This is the header\n  </header>\n\t<h1>Default</h1>\n</div>\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -15043,7 +15169,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-142c3dca", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"vue":29,"vue-hot-reload-api":27}],36:[function(require,module,exports){
+},{"vue":29,"vue-hot-reload-api":27}],39:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -15054,16 +15180,30 @@ var _NoteButton = require('../components/NoteButton.vue');
 
 var _NoteButton2 = _interopRequireDefault(_NoteButton);
 
+var _CircleButton = require('../components/CircleButton.vue');
+
+var _CircleButton2 = _interopRequireDefault(_CircleButton);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
   components: {
-    'note-button': _NoteButton2.default
+    'note-button': _NoteButton2.default,
+    'circle-button': _CircleButton2.default
   },
-  computed: {}
+  computed: {
+    notes: function notes() {
+      return this.$store.state.notes;
+    }
+  },
+  methods: {
+    addNew: function addNew(e) {
+      console.log(e);
+    }
+  }
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"page page--index\">\n\t<h1>Index</h1>\n\n\t<div class=\"index-list\">\n\t\t<note-button note=\"\"></note-button>\n\t</div>\n\n</div>\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"page page--index\">\n\n  <header>\n    <h1>Index</h1>\n  </header>\n\n  <main>\n    <div class=\"index-list\">\n      <note-button symbol=\"plus\"></note-button>\n    </div>\n    <circle-button @clicked=\"addNew\"></circle-button>\n  </main>\n\n</div>\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -15074,7 +15214,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-77ce68a8", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"../components/NoteButton.vue":33,"vue":29,"vue-hot-reload-api":27}],37:[function(require,module,exports){
+},{"../components/CircleButton.vue":33,"../components/NoteButton.vue":36,"vue":29,"vue-hot-reload-api":27}],40:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -15093,7 +15233,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-108e5cb9", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"vue":29,"vue-hot-reload-api":27}],38:[function(require,module,exports){
+},{"vue":29,"vue-hot-reload-api":27}],41:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -15138,7 +15278,7 @@ exports.default = {
 }; /* START: Imports */
 // import the components for the routes here
 
-},{"./Default.vue":35,"./Index.vue":36,"./Settings.vue":37}],39:[function(require,module,exports){
+},{"./Default.vue":38,"./Index.vue":39,"./Settings.vue":40}],42:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -15158,11 +15298,18 @@ exports.default = {
   },
   actions: {},
   mutations: {},
-  getters: {},
+  getters: {
+    notesList: function notesList() {
+      return this.state.notes;
+    },
+    notesId: function notesId(id) {
+      return this.state.notes[id];
+    }
+  },
   modules: {}
 };
 
-},{"./notes":40}],40:[function(require,module,exports){
+},{"./notes":43}],43:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -15172,4 +15319,4 @@ var notes = [];
 
 exports.default = notes;
 
-},{}]},{},[34]);
+},{}]},{},[37]);
