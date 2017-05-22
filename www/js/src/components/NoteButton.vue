@@ -1,7 +1,7 @@
 <template>
 	<div class="btn btn--note">
     <router-link :to="'/note/'+note.id">
-      {{note.title}}
+      {{ note.title || 'New Note' }}
     </router-link>
   </div>
 </template>
@@ -16,8 +16,8 @@ export default {
       default() {
         return {
           id: 0,
-          title: 'Title',
-          content: 'test'
+          title: '',
+          content: ''
         }
       }
     }

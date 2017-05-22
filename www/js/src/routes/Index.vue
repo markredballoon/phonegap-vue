@@ -9,6 +9,7 @@
       <div class="index-list">
         <note-button 
           v-for="note in notes"
+          :note="note"
           symbol="plus"></note-button>
       </div>
       <circle-button 

@@ -3,6 +3,7 @@
 import Index from './Index.vue';
 import Default from './Default.vue';
 import Settings from './Settings.vue';
+import Note from './Note.vue';
 /* END: Imports */
 
 
@@ -28,6 +29,6 @@ export default [
   },
   { 
     path: '/note/:id', 
-    component: Default
+    component: Note
   },
 ]

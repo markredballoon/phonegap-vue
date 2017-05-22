@@ -50,6 +50,7 @@ const store = new Vuex.Store({
   ...vuexStore,
   strict: true
 });
+
 // Create router
 const router = new VueRouter({
   routes,
@@ -58,7 +59,7 @@ const router = new VueRouter({
 // Sync the router to the store
 sync(store, router);  
 // initialise the app
-const vm = new Vue({
+window.vm = new Vue({
   router,
   store,
   el: '#app',

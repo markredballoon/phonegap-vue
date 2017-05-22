@@ -1,0 +1,25 @@
+.page--note{
+  main{
+    display: flex;
+    padding: 12px;
+    flex-direction: column;
+  }
+  .title-input{
+    font-size: 2rem;
+    width: 100%;
+    line-height: 1;
+    display: block;
+    flex: 0 0 40px;
+    border-bottom: 1px solid @clr-blue-600;
+    &:active{
+      border-bottom: 1px solid @clr-blue-900;
+    }
+  }
+  .content-input{
+    padding-top: 1rem;
+    font-size: 1.2rem;
+    display: block;
+    width: 100%;
+    flex: 1;
+  }
+}
