@@ -10,18 +10,16 @@ export default {
     notes
   },
   actions: {
-    addNote(note){
+    addNote(context, note){
 
-      const newNote = note || {};
-
+      const newNote = note || { title:'', content:'' };
       newNote.id = randomId();
-
-      store.commit('ADDNOTE', newNote);
+      context.commit('ADDNOTE', newNote);
       
     }
   },
   mutations: {
-    ADDNOTE(statem, note){
+    ADDNOTE(state, note){
       state.notes.push(note);
     }
   },

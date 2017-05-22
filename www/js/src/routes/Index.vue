@@ -8,6 +8,7 @@
     <main>
       <div class="index-list">
         <note-button 
+          v-for="note in notes"
           symbol="plus"></note-button>
       </div>
       <circle-button 
@@ -33,7 +34,7 @@ export default {
   },
   methods:{
     addNew(e){
-      console.log(e)
+      this.$store.dispatch('addNote');
     }
   }
 }

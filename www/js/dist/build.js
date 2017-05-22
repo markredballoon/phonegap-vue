@@ -181,7 +181,7 @@ module.exports = function xhrAdapter(config) {
 };
 
 }).call(this,require('_process'))
-},{"../core/createError":9,"./../core/settle":12,"./../helpers/btoa":16,"./../helpers/buildURL":17,"./../helpers/cookies":19,"./../helpers/isURLSameOrigin":21,"./../helpers/parseHeaders":23,"./../utils":25,"_process":26}],3:[function(require,module,exports){
+},{"../core/createError":9,"./../core/settle":12,"./../helpers/btoa":16,"./../helpers/buildURL":17,"./../helpers/cookies":19,"./../helpers/isURLSameOrigin":21,"./../helpers/parseHeaders":23,"./../utils":25,"_process":42}],3:[function(require,module,exports){
 'use strict';
 
 var utils = require('./utils');
@@ -730,7 +730,7 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 module.exports = defaults;
 
 }).call(this,require('_process'))
-},{"./adapters/http":2,"./adapters/xhr":2,"./helpers/normalizeHeaderName":22,"./utils":25,"_process":26}],15:[function(require,module,exports){
+},{"./adapters/http":2,"./adapters/xhr":2,"./helpers/normalizeHeaderName":22,"./utils":25,"_process":42}],15:[function(require,module,exports){
 'use strict';
 
 module.exports = function bind(fn, thisArg) {
@@ -1390,6 +1390,197 @@ module.exports = {
 };
 
 },{"./helpers/bind":15}],26:[function(require,module,exports){
+module.exports = { "default": require("core-js/library/fn/object/assign"), __esModule: true };
+},{"core-js/library/fn/object/assign":28}],27:[function(require,module,exports){
+"use strict";
+
+var _Object$assign = require("babel-runtime/core-js/object/assign")["default"];
+
+exports["default"] = _Object$assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];
+
+    for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }
+
+  return target;
+};
+
+exports.__esModule = true;
+},{"babel-runtime/core-js/object/assign":26}],28:[function(require,module,exports){
+require('../../modules/es6.object.assign');
+module.exports = require('../../modules/$.core').Object.assign;
+},{"../../modules/$.core":31,"../../modules/es6.object.assign":41}],29:[function(require,module,exports){
+module.exports = function(it){
+  if(typeof it != 'function')throw TypeError(it + ' is not a function!');
+  return it;
+};
+},{}],30:[function(require,module,exports){
+var toString = {}.toString;
+
+module.exports = function(it){
+  return toString.call(it).slice(8, -1);
+};
+},{}],31:[function(require,module,exports){
+var core = module.exports = {version: '1.2.6'};
+if(typeof __e == 'number')__e = core; // eslint-disable-line no-undef
+},{}],32:[function(require,module,exports){
+// optional / simple context binding
+var aFunction = require('./$.a-function');
+module.exports = function(fn, that, length){
+  aFunction(fn);
+  if(that === undefined)return fn;
+  switch(length){
+    case 1: return function(a){
+      return fn.call(that, a);
+    };
+    case 2: return function(a, b){
+      return fn.call(that, a, b);
+    };
+    case 3: return function(a, b, c){
+      return fn.call(that, a, b, c);
+    };
+  }
+  return function(/* ...args */){
+    return fn.apply(that, arguments);
+  };
+};
+},{"./$.a-function":29}],33:[function(require,module,exports){
+// 7.2.1 RequireObjectCoercible(argument)
+module.exports = function(it){
+  if(it == undefined)throw TypeError("Can't call method on  " + it);
+  return it;
+};
+},{}],34:[function(require,module,exports){
+var global    = require('./$.global')
+  , core      = require('./$.core')
+  , ctx       = require('./$.ctx')
+  , PROTOTYPE = 'prototype';
+
+var $export = function(type, name, source){
+  var IS_FORCED = type & $export.F
+    , IS_GLOBAL = type & $export.G
+    , IS_STATIC = type & $export.S
+    , IS_PROTO  = type & $export.P
+    , IS_BIND   = type & $export.B
+    , IS_WRAP   = type & $export.W
+    , exports   = IS_GLOBAL ? core : core[name] || (core[name] = {})
+    , target    = IS_GLOBAL ? global : IS_STATIC ? global[name] : (global[name] || {})[PROTOTYPE]
+    , key, own, out;
+  if(IS_GLOBAL)source = name;
+  for(key in source){
+    // contains in native
+    own = !IS_FORCED && target && key in target;
+    if(own && key in exports)continue;
+    // export native or passed
+    out = own ? target[key] : source[key];
+    // prevent global pollution for namespaces
+    exports[key] = IS_GLOBAL && typeof target[key] != 'function' ? source[key]
+    // bind timers to global for call from export context
+    : IS_BIND && own ? ctx(out, global)
+    // wrap global constructors for prevent change them in library
+    : IS_WRAP && target[key] == out ? (function(C){
+      var F = function(param){
+        return this instanceof C ? new C(param) : C(param);
+      };
+      F[PROTOTYPE] = C[PROTOTYPE];
+      return F;
+    // make static versions for prototype methods
+    })(out) : IS_PROTO && typeof out == 'function' ? ctx(Function.call, out) : out;
+    if(IS_PROTO)(exports[PROTOTYPE] || (exports[PROTOTYPE] = {}))[key] = out;
+  }
+};
+// type bitmap
+$export.F = 1;  // forced
+$export.G = 2;  // global
+$export.S = 4;  // static
+$export.P = 8;  // proto
+$export.B = 16; // bind
+$export.W = 32; // wrap
+module.exports = $export;
+},{"./$.core":31,"./$.ctx":32,"./$.global":36}],35:[function(require,module,exports){
+module.exports = function(exec){
+  try {
+    return !!exec();
+  } catch(e){
+    return true;
+  }
+};
+},{}],36:[function(require,module,exports){
+// https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
+var global = module.exports = typeof window != 'undefined' && window.Math == Math
+  ? window : typeof self != 'undefined' && self.Math == Math ? self : Function('return this')();
+if(typeof __g == 'number')__g = global; // eslint-disable-line no-undef
+},{}],37:[function(require,module,exports){
+// fallback for non-array-like ES3 and non-enumerable old V8 strings
+var cof = require('./$.cof');
+module.exports = Object('z').propertyIsEnumerable(0) ? Object : function(it){
+  return cof(it) == 'String' ? it.split('') : Object(it);
+};
+},{"./$.cof":30}],38:[function(require,module,exports){
+var $Object = Object;
+module.exports = {
+  create:     $Object.create,
+  getProto:   $Object.getPrototypeOf,
+  isEnum:     {}.propertyIsEnumerable,
+  getDesc:    $Object.getOwnPropertyDescriptor,
+  setDesc:    $Object.defineProperty,
+  setDescs:   $Object.defineProperties,
+  getKeys:    $Object.keys,
+  getNames:   $Object.getOwnPropertyNames,
+  getSymbols: $Object.getOwnPropertySymbols,
+  each:       [].forEach
+};
+},{}],39:[function(require,module,exports){
+// 19.1.2.1 Object.assign(target, source, ...)
+var $        = require('./$')
+  , toObject = require('./$.to-object')
+  , IObject  = require('./$.iobject');
+
+// should work with symbols and should have deterministic property order (V8 bug)
+module.exports = require('./$.fails')(function(){
+  var a = Object.assign
+    , A = {}
+    , B = {}
+    , S = Symbol()
+    , K = 'abcdefghijklmnopqrst';
+  A[S] = 7;
+  K.split('').forEach(function(k){ B[k] = k; });
+  return a({}, A)[S] != 7 || Object.keys(a({}, B)).join('') != K;
+}) ? function assign(target, source){ // eslint-disable-line no-unused-vars
+  var T     = toObject(target)
+    , $$    = arguments
+    , $$len = $$.length
+    , index = 1
+    , getKeys    = $.getKeys
+    , getSymbols = $.getSymbols
+    , isEnum     = $.isEnum;
+  while($$len > index){
+    var S      = IObject($$[index++])
+      , keys   = getSymbols ? getKeys(S).concat(getSymbols(S)) : getKeys(S)
+      , length = keys.length
+      , j      = 0
+      , key;
+    while(length > j)if(isEnum.call(S, key = keys[j++]))T[key] = S[key];
+  }
+  return T;
+} : Object.assign;
+},{"./$":38,"./$.fails":35,"./$.iobject":37,"./$.to-object":40}],40:[function(require,module,exports){
+// 7.1.13 ToObject(argument)
+var defined = require('./$.defined');
+module.exports = function(it){
+  return Object(defined(it));
+};
+},{"./$.defined":33}],41:[function(require,module,exports){
+// 19.1.3.1 Object.assign(target, source)
+var $export = require('./$.export');
+
+$export($export.S + $export.F, 'Object', {assign: require('./$.object-assign')});
+},{"./$.export":34,"./$.object-assign":39}],42:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -1575,7 +1766,7 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],27:[function(require,module,exports){
+},{}],43:[function(require,module,exports){
 var Vue // late bind
 var map = Object.create(null)
 var shimmed = false
@@ -1876,7 +2067,7 @@ function format (id) {
   return match ? match[0] : id
 }
 
-},{}],28:[function(require,module,exports){
+},{}],44:[function(require,module,exports){
 (function (process){
 /**
   * vue-router v2.5.3
@@ -4346,7 +4537,7 @@ if (inBrowser && window.Vue) {
 module.exports = VueRouter;
 
 }).call(this,require('_process'))
-},{"_process":26}],29:[function(require,module,exports){
+},{"_process":42}],45:[function(require,module,exports){
 (function (process,global){
 /*!
  * Vue.js v2.3.3
@@ -14040,7 +14231,7 @@ Vue$3.compile = compileToFunctions;
 module.exports = Vue$3;
 
 }).call(this,require('_process'),typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"_process":26}],30:[function(require,module,exports){
+},{"_process":42}],46:[function(require,module,exports){
 exports.sync = function (store, router, options) {
   var moduleName = (options || {}).moduleName || 'route'
 
@@ -14097,7 +14288,7 @@ function cloneRoute (to, from) {
   return Object.freeze(clone)
 }
 
-},{}],31:[function(require,module,exports){
+},{}],47:[function(require,module,exports){
 /**
  * vuex v2.3.0
  * (c) 2017 Evan You
@@ -14908,7 +15099,7 @@ return index;
 
 })));
 
-},{}],32:[function(require,module,exports){
+},{}],48:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -14942,7 +15133,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-111b7a52", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"./components/Footer.vue":34,"vue":29,"vue-hot-reload-api":27}],33:[function(require,module,exports){
+},{"./components/Footer.vue":50,"vue":45,"vue-hot-reload-api":43}],49:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -14961,7 +15152,7 @@ exports.default = {
   },
   computed: {
     faClass: function faClass() {
-      return 'fa-' + this.plus;
+      return 'fa-' + this.symbol;
     }
   },
   methods: {
@@ -14982,7 +15173,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-6c972128", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"vue":29,"vue-hot-reload-api":27}],34:[function(require,module,exports){
+},{"vue":45,"vue-hot-reload-api":43}],50:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -15006,7 +15197,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-3f5279e5", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"vue":29,"vue-hot-reload-api":27}],35:[function(require,module,exports){
+},{"vue":45,"vue-hot-reload-api":43}],51:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -15030,7 +15221,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-6084ddd7", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"vue":29,"vue-hot-reload-api":27}],36:[function(require,module,exports){
+},{"vue":45,"vue-hot-reload-api":43}],52:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -15066,8 +15257,12 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-7a2bb6e4", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"vue":29,"vue-hot-reload-api":27}],37:[function(require,module,exports){
+},{"vue":45,"vue-hot-reload-api":43}],53:[function(require,module,exports){
 'use strict';
+
+var _extends2 = require('babel-runtime/helpers/extends');
+
+var _extends3 = _interopRequireDefault(_extends2);
 
 var _vue = require('vue');
 
@@ -15135,9 +15330,14 @@ _vue2.default.component('app-header', {
 
 /* START: Vue init */
 // Create store
-var store = new _vuex2.default.Store(_index2.default);
+var store = new _vuex2.default.Store((0, _extends3.default)({}, _index2.default, {
+  strict: true
+}));
 // Create router
-var router = new _vueRouter2.default(_index4.default);
+var router = new _vueRouter2.default({
+  routes: _index4.default,
+  mode: 'history'
+});
 // Sync the router to the store
 (0, _vuexRouterSync.sync)(store, router);
 // initialise the app
@@ -15150,7 +15350,7 @@ var vm = new _vue2.default({
 });
 /* END: Vue init */
 
-},{"./App.vue":32,"./components/Header.vue":35,"./routes/index":41,"./store/index":42,"axios":1,"vue":29,"vue-router":28,"vuex":31,"vuex-router-sync":30}],38:[function(require,module,exports){
+},{"./App.vue":48,"./components/Header.vue":51,"./routes/index":57,"./store/index":58,"axios":1,"babel-runtime/helpers/extends":27,"vue":45,"vue-router":44,"vuex":47,"vuex-router-sync":46}],54:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -15169,7 +15369,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-142c3dca", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"vue":29,"vue-hot-reload-api":27}],39:[function(require,module,exports){
+},{"vue":45,"vue-hot-reload-api":43}],55:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -15198,12 +15398,12 @@ exports.default = {
   },
   methods: {
     addNew: function addNew(e) {
-      console.log(e);
+      this.$store.dispatch('addNote');
     }
   }
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"page page--index\">\n\n  <header>\n    <h1>Index</h1>\n  </header>\n\n  <main>\n    <div class=\"index-list\">\n      <note-button symbol=\"plus\"></note-button>\n    </div>\n    <circle-button @clicked=\"addNew\"></circle-button>\n  </main>\n\n</div>\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"page page--index\">\n\n  <header>\n    <h1>Index</h1>\n  </header>\n\n  <main>\n    <div class=\"index-list\">\n      <note-button v-for=\"note in notes\" symbol=\"plus\"></note-button>\n    </div>\n    <circle-button @clicked=\"addNew\"></circle-button>\n  </main>\n\n</div>\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -15214,7 +15414,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-77ce68a8", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"../components/CircleButton.vue":33,"../components/NoteButton.vue":36,"vue":29,"vue-hot-reload-api":27}],40:[function(require,module,exports){
+},{"../components/CircleButton.vue":49,"../components/NoteButton.vue":52,"vue":45,"vue-hot-reload-api":43}],56:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -15233,7 +15433,7 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.update("_v-108e5cb9", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"vue":29,"vue-hot-reload-api":27}],41:[function(require,module,exports){
+},{"vue":45,"vue-hot-reload-api":43}],57:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -15257,28 +15457,25 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 /* END: Imports */
 
 /* EXPORT: Routes */
-exports.default = {
-  mode: 'history',
-  routes: [{
-    path: '/',
-    component: _Index2.default
-  }, {
-    path: '/about',
-    component: _Default2.default
-  }, {
-    path: '/settings',
-    component: _Settings2.default
-  }, {
-    path: '*',
-    component: _Default2.default
-  }, {
-    path: '/note/:id',
-    component: _Default2.default
-  }]
-}; /* START: Imports */
+exports.default = [{
+  path: '/',
+  component: _Index2.default
+}, {
+  path: '/about',
+  component: _Default2.default
+}, {
+  path: '/settings',
+  component: _Settings2.default
+}, {
+  path: '*',
+  component: _Default2.default
+}, {
+  path: '/note/:id',
+  component: _Default2.default
+}]; /* START: Imports */
 // import the components for the routes here
 
-},{"./Default.vue":38,"./Index.vue":39,"./Settings.vue":40}],42:[function(require,module,exports){
+},{"./Default.vue":54,"./Index.vue":55,"./Settings.vue":56}],58:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -15291,13 +15488,28 @@ var _notes2 = _interopRequireDefault(_notes);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var randomId = function randomId() {
+  return new Date().getTime().toString(16);
+};
+
 /* Store for the app */
 exports.default = {
   state: {
     notes: _notes2.default
   },
-  actions: {},
-  mutations: {},
+  actions: {
+    addNote: function addNote(context, note) {
+
+      var newNote = note || { title: '', content: '' };
+      newNote.id = randomId();
+      context.commit('ADDNOTE', newNote);
+    }
+  },
+  mutations: {
+    ADDNOTE: function ADDNOTE(state, note) {
+      state.notes.push(note);
+    }
+  },
   getters: {
     notesList: function notesList() {
       return this.state.notes;
@@ -15309,7 +15521,7 @@ exports.default = {
   modules: {}
 };
 
-},{"./notes":43}],43:[function(require,module,exports){
+},{"./notes":59}],59:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -15319,4 +15531,4 @@ var notes = [];
 
 exports.default = notes;
 
-},{}]},{},[37]);
+},{}]},{},[53]);
