@@ -9,28 +9,25 @@ import Settings from './Settings.vue';
 
 
 /* EXPORT: Routes */
-export default {
-  mode: 'history',
-  routes: [
-    { 
-      path: '/', 
-      component: Index 
-    },
-    { 
-      path: '/about', 
-      component: Default 
-    },
-    { 
-      path: '/settings', 
-      component: Settings 
-    },
-    { 
-      path: '*', 
-      component: Default 
-    },
-    { 
-      path: '/note/:id', 
-      component: Default
-    },
-  ]
-};
+export default [
+  { 
+    path: '/', 
+    component: Index 
+  },
+  { 
+    path: '/about', 
+    component: Default 
+  },
+  { 
+    path: '/settings', 
+    component: Settings 
+  },
+  { 
+    path: '*', 
+    component: Default 
+  },
+  { 
+    path: '/note/:id', 
+    component: Default
+  },
+]

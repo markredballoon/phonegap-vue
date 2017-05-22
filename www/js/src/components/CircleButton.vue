@@ -21,7 +21,7 @@ export default {
   },
   computed:{
     faClass(){
-      return 'fa-' + this.plus;
+      return 'fa-' + this.symbol;
     }
   },
   methods:{
